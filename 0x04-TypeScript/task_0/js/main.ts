@@ -1,101 +1,48 @@
-// task_1/js/main.ts
+// task_0/js/main.ts
 
-// ✅ Task 1 – Teacher Interface
-interface Teacher {
-  readonly firstName: string; // cannot be modified after initialization
-  readonly lastName: string; // cannot be modified after initialization
-  fullTimeEmployee: boolean; // must always be present
-  yearsOfExperience?: number; // optional
-  location: string; // must always be present
-  [key: string]: any; // allow additional attributes
-}
-
-const teacher3: Teacher = {
-  firstName: "John",
-  lastName: "Doe",
-  fullTimeEmployee: false,
-  location: "London",
-  contract: false,
-};
-
-console.log("Teacher:", teacher3);
-
-// ✅ Task 2 – Directors Interface Extends Teacher
-interface Director extends Teacher {
-  numberOfReports: number; // mandatory for directors
-}
-
-const director1: Director = {
-  firstName: "John",
-  lastName: "Doe",
-  fullTimeEmployee: true,
-  location: "London",
-  numberOfReports: 17,
-};
-
-console.log("Director:", director1);
-
-// ✅ Task 3 – printTeacher Function + Interface
-interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  readonly fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
+// ✅ Task 0 – Student Interface
+interface Student {
+  firstName: string;
+  lastName: string;
+  age: number;
   location: string;
 }
 
-interface printTeacherFunction {
-  (firstName: string, lastName: string): string;
-}
+// ✅ Create two students
+const student1: Student = {
+  firstName: "Feven",
+  lastName: "Zeray",
+  age: 22,
+  location: "Addis Ababa",
+};
 
-// Function using object destructuring and the specified return string
-function printTeacher({ firstName, lastName }: {
-  firstName: string;
-  lastName: string;
-}): string {
-  return `${firstName}. ${lastName}`;
-}
+const student2: Student = {
+  firstName: "Dereje",
+  lastName: "Masresha",
+  age: 23,
+  location: "Mekelle",
+};
 
-// Example usage
-console.log(
-  "PrintTeacher:",
-  printTeacher({ firstName: "John", lastName: "Doe" })
-);
+// ✅ Store students in an array
+const studentsList: Student[] = [student1, student2];
 
-// ✅ Task 4 – StudentClass + Interfaces
+// ✅ Render a table with Vanilla JS
+const table = document.createElement("table");
+const tableBody = document.createElement("tbody");
 
-// Interface for constructor parameters
-interface StudentProps {
-  firstName: string;
-  lastName: string;
-}
+studentsList.forEach((student) => {
+  const row = document.createElement("tr");
 
-// Interface for the class methods
-interface StudentClassInterface {
-  workOnHomework(): string;
-  displayName(): string;
-}
+  const nameCell = document.createElement("td");
+  nameCell.textContent = student.firstName;
 
-// Class declaration with constructor
-class StudentClass {
-  firstName: string;
-  lastName: string;
+  const locationCell = document.createElement("td");
+  locationCell.textContent = student.location;
 
-  constructor(student: StudentProps) {
-    this.firstName = student.firstName;
-    this.lastName = student.lastName;
-  }
+  row.appendChild(nameCell);
+  row.appendChild(locationCell);
+  tableBody.appendChild(row);
+});
 
-  workOnHomework(): string {
-    return "Currently working";
-  }
-
-  displayName(): string {
-    return this.firstName;
-  }
-}
-
-// Example usage
-const student = new StudentClass({ firstName: "Jane", lastName: "Smith" });
-console.log("Student Name:", student.displayName());
-console.log("Student Work:", student.workOnHomework());
+table.appendChild(tableBody);
+document.body.appendChild(table);
